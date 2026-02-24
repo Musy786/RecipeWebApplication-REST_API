@@ -1,0 +1,12 @@
+// To prevent bloating of GitHub
+
+node_modules/
+.env
+*.env         // The database password and such
+.DS_Store     // From the IDE
+dist/         // Binary executables
+build/        // Build files
+backend/database/dbdata/
+backend/node_modules/
+frontend/node_modules/
+package-lock.json
