@@ -24,13 +24,14 @@ git clone <repository-url>
 cd RecipeWebApplication-REST_API/RecipeWebAPI
 
 # Start all services
-docker compose up --build
+docker compose up
 
 # Access the application
 # Frontend: http://localhost:3001
 # Backend API: http://localhost:3000
-# API Docs: http://localhost:3000/openapi
 ```
+
+First startup takes 2-3 minutes! (MySQL initialization + React compilation) Subsequent runs are much faster.
 
 ## Screenshots
 
