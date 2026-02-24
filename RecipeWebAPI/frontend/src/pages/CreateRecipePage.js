@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import {status, json} from "../utilities/requestHandlers";
 import {Form, Input, Button, Alert, Typography} from "antd";
 
 const {Title} = Typography;
@@ -38,30 +37,18 @@ function CreateRecipePage() {
         body: JSON.stringify(cleanedRecipe)
       });
 
-      const checkedResponse = await status(response);
-      const data = await json(checkedResponse);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Server error ${response.status}: ${errorData.error || errorData.message}`);
+      }
 
       setMessage("Recipe created successfully!");
       form.resetFields();
       setFormData({title: "", description: "", ingredients: "", instructions: "", created_by: "", prep_time: 0, cook_time: 0,});
     } 
-    catch (errResponse) {
-      console.error("Error creating recipe:", errResponse);
-      if (errResponse && typeof errResponse.json === "function") {
-        try {
-          const errorData = await errResponse.json();
-          setError(`Failed to create recipe: ${errorData.message || JSON.stringify(errorData)}`);
-        }
-        catch (parseError) {
-          setError(`Failed to create recipe. Server returned ${errResponse.status}: ${errResponse.statusText}`);
-        }
-      }
-      else if (errResponse instanceof Error) {
-        setError(`Failed to create recipe: ${errResponse.message}`);
-      }
-      else {
-        setError("Failed to create recipe. Please try again.");
-      }
+    catch (err) {
+      console.error("Error creating recipe:", err);
+      setError(`Failed to create recipe: ${err.message}`);
     }
   };
 
