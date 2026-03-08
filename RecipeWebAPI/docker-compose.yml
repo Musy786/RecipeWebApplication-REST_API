@@ -7,7 +7,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: recipes_db
     volumes:
-      - ./backend/database/dbdata:/var/lib/mysql
+      - db_data:/var/lib/mysql
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     healthcheck:
@@ -51,3 +52,6 @@ services:
       - /usr/src/app/node_modules
     working_dir: /usr/src/app
     command: npm start
+
+volumes:
+  db_data:
