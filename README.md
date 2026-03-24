@@ -130,7 +130,15 @@ npm start
 
 ### Backend Integration Tests
 
-Run the database container, then execute backend tests:
+Recommended method through Docker:
+
+```bash
+cd RecipeWebAPI
+docker compose up -d db
+docker compose run --rm backend sh -lc "npm install && npm test"   # One-off backend container that installs the dependencies and then runs the tests
+```
+
+Alternative if running tests directly on your machine:
 
 ```bash
 cd RecipeWebAPI
