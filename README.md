@@ -128,6 +128,20 @@ npm install
 npm start
 ```
 
+### Backend Integration Tests
+
+Run the database container, then execute backend tests:
+
+```bash
+cd RecipeWebAPI
+docker compose up -d db   # Start only the database in the background for backend tests
+cd backend
+npm install
+npm test
+```
+
+Tests run against a dedicated `recipes_test` database so they do not modify your app's main `recipes_db` data.
+
 ### Adding Sample Data
 
 Sample recipes are automatically loaded when the database initializes with Docker Compose.

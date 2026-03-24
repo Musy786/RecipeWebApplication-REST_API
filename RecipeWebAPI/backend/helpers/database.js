@@ -4,7 +4,7 @@ const info = require("../config");
 // Execution of SQL query against database
 exports.run_query = async function run_query(query, values) {
     try {
-        const connection = await mysql.createConnection(info.config);
+        const connection = await mysql.createConnection(info.getConfig());
         let data = await connection.query(query, values);
         await connection.end()
         return data;
@@ -18,7 +18,7 @@ exports.run_query = async function run_query(query, values) {
 // Test connection to Database
 exports.testConnection = async function testConnection() {
     try {
-        const connection = await mysql.createConnection(info.config);
+        const connection = await mysql.createConnection(info.getConfig());
         console.log("Connected to MySQL database");
         await connection.end();
     }
